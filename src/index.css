@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Leaflet map takes full height of its container */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #f3f1ea;
+  font-family: inherit;
+}
+
+/* Custom map pin (no external image assets needed) */
+.seoul-pin {
+  background: transparent;
+  border: none;
+}
+.seoul-pin .pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  border: 2.5px solid #faf9f5;
+  background: #1f4e9c;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+}
+.seoul-pin.is-fixed .pin-dot {
+  background: #8a2e3e;
+}
+.seoul-pin:hover .pin-dot {
+  transform: scale(1.25);
+}
+
+/* Thin editorial scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d5d0c4 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #d5d0c4;
+  border-radius: 8px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}

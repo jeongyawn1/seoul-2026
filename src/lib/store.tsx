@@ -3,9 +3,11 @@ import type { ReactNode } from 'react'
 import type { WishlistStatus } from '../types'
 import { STATUS_ORDER } from './utils'
 
-const KEY = 'seoul-2026:statuses'
+const STATUS_KEY = 'seoul-2026:statuses'
+const CHECK_KEY = 'seoul-2026:checklist'
 
 type StatusMap = Record<string, WishlistStatus>
+type CheckMap = Record<string, boolean>
 
 interface StoreValue {
   statuses: StatusMap
@@ -15,30 +17,43 @@ interface StoreValue {
   isPlanned: (id: string) => boolean
   togglePlanned: (id: string) => void
   plannedIds: string[]
+  // 清单（美食「已吃」/ 购物「已购买」）
+  checked: CheckMap
+  isChecked: (id: string) => boolean
+  toggleChecked: (id: string) => void
 }
 
 const StoreContext = createContext<StoreValue | null>(null)
 
-function load(): StatusMap {
+function load<T>(key: string): T {
   try {
-    const raw = localStorage.getItem(KEY)
-    if (!raw) return {}
-    return JSON.parse(raw) as StatusMap
+    const raw = localStorage.getItem(key)
+    if (!raw) return {} as T
+    return JSON.parse(raw) as T
   } catch {
-    return {}
+    return {} as T
   }
 }
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [statuses, setStatuses] = useState<StatusMap>(() => load())
+  const [statuses, setStatuses] = useState<StatusMap>(() => load(STATUS_KEY))
+  const [checked, setChecked] = useState<CheckMap>(() => load(CHECK_KEY))
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(statuses))
+      localStorage.setItem(STATUS_KEY, JSON.stringify(statuses))
     } catch {
-      // storage may be unavailable (private browsing) — nothing to do
+      // 隐私模式下可能不可用
     }
   }, [statuses])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CHECK_KEY, JSON.stringify(checked))
+    } catch {
+      // 隐私模式下可能不可用
+    }
+  }, [checked])
 
   const value = useMemo<StoreValue>(() => {
     const setStatus = (id: string, s: WishlistStatus) =>
@@ -62,8 +77,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
     const plannedIds = Object.keys(statuses).filter((id) => statuses[id] === 'PLANNED')
 
-    return { statuses, statusFor, setStatus, cycleStatus, isPlanned, togglePlanned, plannedIds }
-  }, [statuses])
+    const isChecked = (id: string) => checked[id] === true
+
+    const toggleChecked = (id: string) =>
+      setChecked((prev) => ({ ...prev, [id]: prev[id] === true ? false : true }))
+
+    return {
+      statuses,
+      statusFor,
+      setStatus,
+      cycleStatus,
+      isPlanned,
+      togglePlanned,
+      plannedIds,
+      checked,
+      isChecked,
+      toggleChecked,
+    }
+  }, [statuses, checked])
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
 }

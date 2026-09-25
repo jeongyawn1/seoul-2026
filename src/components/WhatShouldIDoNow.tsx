@@ -3,6 +3,7 @@ import { DAY_PLANS } from '../data/itinerary'
 import { PLACES_BY_ID } from '../data/places'
 import type { Place } from '../types'
 import { useStore } from '../lib/store'
+import { CATEGORY_LABEL } from '../lib/utils'
 import { BUCKET_LABEL, daysUntilTrip, isAfterTrip, isBeforeTrip, timeBucket, tripDayIndex } from '../lib/clock'
 
 interface Rec {
@@ -31,16 +32,16 @@ function buildRec(now: Date, isVisited: (id: string) => boolean): Rec {
   if (isBeforeTrip(now)) {
     const d = daysUntilTrip(now)
     return {
-      label: 'Countdown',
-      title: `${d} days to Seoul`,
-      subtitle: 'Trip starts 07 NOV. Day 1 is arrival + Touch Five in the evening — keep it easy.',
+      label: '倒计时',
+      title: `距首尔还有 ${d} 天`,
+      subtitle: '行程 11/07 开始。第一天是抵达 + 晚上 Touch Five，轻松为主。',
     }
   }
   if (isAfterTrip(now)) {
     return {
-      label: 'Wrap up',
-      title: 'Trip complete',
-      subtitle: 'Hope Seoul delivered. Safe travels home — see you next time.',
+      label: '收尾',
+      title: '旅程结束',
+      subtitle: '希望首尔给你留下了好回忆。一路平安，下次见。',
     }
   }
 
@@ -48,12 +49,12 @@ function buildRec(now: Date, isVisited: (id: string) => boolean): Rec {
   const plan = DAY_PLANS.find((p) => p.day === day)
   const bucket = timeBucket(now)
   const bucketLabel = BUCKET_LABEL[bucket]
-  const label = `${bucketLabel} · Day ${day}`
+  const label = `${bucketLabel} · 第 ${day} 天`
   const fixed = plan?.fixed[0]
 
   if (bucket === 'evening' || bucket === 'late') {
     if (fixed) {
-      return { label, title: fixed.title, subtitle: fixed.notes ?? 'Fixed event — get there on time.' }
+      return { label, title: fixed.title, subtitle: fixed.notes ?? '固定活动——按时到场。' }
     }
   }
 
@@ -61,11 +62,11 @@ function buildRec(now: Date, isVisited: (id: string) => boolean): Rec {
     if (fixed) {
       return {
         label,
-        title: `${fixed.title} tonight`,
-        subtitle: 'Keep the day light — rest, eat well, and arrive early. This is the priority.',
+        title: `今晚：${fixed.title}`,
+        subtitle: '今天轻松点——休息好、吃好、提前到场，这是重点。',
       }
     }
-    return { label, title: 'Free & easy', subtitle: 'No fixed plans — take it slow and wander.' }
+    return { label, title: '自由活动', subtitle: '没有固定安排——慢慢逛，随意走走。' }
   }
 
   const cats = CATS_FOR_BUCKET[bucket]
@@ -78,7 +79,7 @@ function buildRec(now: Date, isVisited: (id: string) => boolean): Rec {
       placeId: place.id,
     }
   }
-  return { label, title: 'You’ve covered today', subtitle: 'All planned stops are visited — enjoy the moment.' }
+  return { label, title: '今天已逛完', subtitle: '所有计划点都已打卡——享受当下吧。' }
 }
 
 export default function WhatShouldIDoNow() {
@@ -91,7 +92,7 @@ export default function WhatShouldIDoNow() {
     <div className="bg-white border border-line rounded-2xl p-5 sm:p-6">
       <div className="flex items-center gap-2 mb-1">
         <Sparkles size={15} className="text-seoul" />
-        <span className="text-[11px] uppercase tracking-widest2 text-graywarm">What should I do now?</span>
+        <span className="text-[11px] uppercase tracking-widest2 text-graywarm">现在做什么？</span>
       </div>
 
       <p className="text-[12px] text-graywarm flex items-center gap-1.5 mb-3">
@@ -104,7 +105,7 @@ export default function WhatShouldIDoNow() {
 
       {place ? (
         <p className="mt-3 text-[12px] text-graywarm">
-          {place.nameKr ?? ''} · {place.category} · {place.priceLevel ?? ''}
+          {place.nameKr ?? ''} · {CATEGORY_LABEL[place.category]} · {place.priceLevel ?? ''}
         </p>
       ) : null}
     </div>

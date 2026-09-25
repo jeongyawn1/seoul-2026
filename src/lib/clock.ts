@@ -41,9 +41,9 @@ export function daysUntilTrip(date: Date): number {
 }
 
 export const BUCKET_LABEL: Record<TimeBucket, string> = {
-  morning: 'Morning',
-  midday: 'Lunch',
-  afternoon: 'Afternoon',
-  evening: 'Evening',
-  late: 'Late night',
+  morning: '上午',
+  midday: '午餐',
+  afternoon: '下午',
+  evening: '晚上',
+  late: '深夜',
 }

@@ -5,51 +5,35 @@ export function cn(...parts: Array<string | false | null | undefined>): string {
 }
 
 export const CATEGORY_LABEL: Record<Category, string> = {
-  food: 'Food',
-  cafe: 'Cafe',
-  dessert: 'Dessert',
-  bakery: 'Bakery',
-  shopping: 'Shopping',
-  fragrance: 'Fragrance',
-  beauty: 'Beauty',
-  jewelry: 'Jewelry',
-  lifestyle: 'Lifestyle',
-  vintage: 'Vintage',
-  bar: 'Bar',
-  'hidden-gem': 'Hidden Gem',
-  attraction: 'Attraction',
-  fixed: 'Fixed',
-}
-
-export const CATEGORY_KR: Record<Category, string> = {
-  food: '음식',
-  cafe: '카페',
-  dessert: '디저트',
-  bakery: '베이커리',
-  shopping: '쇼핑',
-  fragrance: '향수',
-  beauty: '뷰티',
-  jewelry: '주얼리',
-  lifestyle: '라이프스타일',
-  vintage: '빈티지',
-  bar: '바',
-  'hidden-gem': '숨은 명소',
-  attraction: '관광',
-  fixed: '고정',
+  food: '美食',
+  cafe: '咖啡',
+  dessert: '甜品',
+  bakery: '面包',
+  shopping: '购物',
+  fragrance: '香水',
+  beauty: '美妆',
+  jewelry: '首饰',
+  lifestyle: '生活',
+  vintage: '古着',
+  bar: '酒吧',
+  'hidden-gem': '隐藏地标',
+  attraction: '景点',
+  fixed: '固定',
 }
 
 export interface PriorityMeta {
   label: string
+  emoji: string
   className: string
   dot: string
 }
 
 export const PRIORITY_META: Record<Priority, PriorityMeta> = {
-  MUST: { label: 'MUST', className: 'bg-wine text-paper', dot: 'bg-wine' },
-  HIGH: { label: 'HIGH', className: 'bg-seoul text-paper', dot: 'bg-seoul' },
-  NICE: { label: 'NICE', className: 'bg-paper2 text-ink-soft border border-line', dot: 'bg-graywarm' },
-  OPTIONAL: { label: 'OPTIONAL', className: 'bg-paper2 text-graywarm border border-line', dot: 'bg-graywarm' },
-  SKIP: { label: 'SKIP', className: 'bg-paper2 text-graywarm border border-line', dot: 'bg-graywarm' },
+  MUST: { label: '必去', emoji: '🔴', className: 'bg-wine text-paper', dot: 'bg-wine' },
+  HIGH: { label: '想去', emoji: '🟡', className: 'bg-amber-100 text-amber-800 border border-amber-300', dot: 'bg-amber-400' },
+  NICE: { label: '推荐', emoji: '🟢', className: 'bg-emerald-100 text-emerald-800 border border-emerald-300', dot: 'bg-emerald-500' },
+  OPTIONAL: { label: '可选', emoji: '⚪', className: 'bg-paper2 text-graywarm border border-line', dot: 'bg-graywarm' },
+  SKIP: { label: '跳过', emoji: '⚪', className: 'bg-paper2 text-graywarm border border-line', dot: 'bg-graywarm' },
 }
 
 export interface StatusMeta {
@@ -58,10 +42,10 @@ export interface StatusMeta {
 }
 
 export const STATUS_META: Record<WishlistStatus, StatusMeta> = {
-  WANT: { label: 'Want', className: 'text-graywarm border border-line' },
-  PLANNED: { label: 'In trip', className: 'text-seoul-deep border border-seoul/40 bg-seoul/5' },
-  VISITED: { label: 'Visited', className: 'text-ink border border-line bg-paper2' },
-  SKIPPED: { label: 'Skipped', className: 'text-graywarm border border-line' },
+  WANT: { label: '想要', className: 'text-graywarm border border-line' },
+  PLANNED: { label: '已安排', className: 'text-seoul-deep border border-seoul/40 bg-seoul/5' },
+  VISITED: { label: '已打卡', className: 'text-ink border border-line bg-paper2' },
+  SKIPPED: { label: '跳过', className: 'text-graywarm border border-line' },
 }
 
 export const STATUS_ORDER: WishlistStatus[] = ['WANT', 'PLANNED', 'VISITED', 'SKIPPED']
@@ -78,11 +62,21 @@ export const INTENSITY_META: Record<DayIntensity, IntensityMeta> = {
   HEAVY: { label: 'HEAVY', className: 'text-wine', bar: 'bg-wine' },
 }
 
-// Always-valid search links — never a broken URL, no API key needed.
+export const INTENSITY_CN: Record<DayIntensity, string> = {
+  RELAXED: '轻松',
+  MODERATE: '适中',
+  HEAVY: '紧凑',
+}
+
+// 永远可用的搜索链接 —— 不需要 API Key，也不会产生坏链接。
 export function googleMapsUrl(name: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Seoul')}`
 }
 
 export function naverMapsUrl(name: string): string {
   return `https://map.naver.com/v5/search/${encodeURIComponent(name)}`
+}
+
+export function kakaoMapsUrl(name: string): string {
+  return `https://map.kakao.com/?q=${encodeURIComponent(name)}`
 }

@@ -1,5 +1,5 @@
 import type { DayIntensity, Priority, WishlistStatus } from '../types'
-import { INTENSITY_META, PRIORITY_META, STATUS_META, cn } from '../lib/utils'
+import { INTENSITY_CN, INTENSITY_META, PRIORITY_META, STATUS_META, cn } from '../lib/utils'
 
 export function SectionHeading({
   eyebrow,
@@ -25,10 +25,11 @@ export function PriorityBadge({ priority }: { priority?: Priority }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider',
+        'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold',
         m.className,
       )}
     >
+      <span>{m.emoji}</span>
       {m.label}
     </span>
   )
@@ -52,7 +53,7 @@ export function IntensityBadge({ level }: { level: DayIntensity }) {
       <span className="inline-block h-1.5 w-9 rounded-full bg-paper2 overflow-hidden">
         <span className={cn('block h-full', m.bar)} style={{ width }} />
       </span>
-      <span className={cn('text-[11px] font-semibold uppercase tracking-wider', m.className)}>{m.label}</span>
+      <span className={cn('text-[11px] font-semibold', m.className)}>{INTENSITY_CN[level]}</span>
     </span>
   )
 }

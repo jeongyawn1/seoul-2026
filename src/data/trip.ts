@@ -1,20 +1,22 @@
 export const TRIP = {
-  title: 'SEOUL',
-  dateRange: '07—11 NOVEMBER 2026',
-  tagline: 'EXO / FOOD / SHOPPING / COFFEE / SEOUL LIFE',
-  destination: 'Seoul, South Korea',
+  title: '首尔',
+  titleEn: 'SEOUL',
+  dateRange: '2026.11.07 — 11.11',
+  tagline: 'EXO 首尔安可 · 购物 · 美食 · 咖啡 · 香水 · 首尔生活',
+  destination: '韩国 · 首尔',
   startISO: '2026-11-07',
   endISO: '2026-11-11',
   days: 5,
   nights: 4,
+  fixedEvents: 3,
 }
 
 export const DATE_LABELS = [
-  { day: 1, date: '2026-11-07', label: '07 NOV', weekday: 'Saturday' },
-  { day: 2, date: '2026-11-08', label: '08 NOV', weekday: 'Sunday' },
-  { day: 3, date: '2026-11-09', label: '09 NOV', weekday: 'Monday' },
-  { day: 4, date: '2026-11-10', label: '10 NOV', weekday: 'Tuesday' },
-  { day: 5, date: '2026-11-11', label: '11 NOV', weekday: 'Wednesday' },
+  { day: 1, date: '2026-11-07', label: '11/07', weekday: '周六' },
+  { day: 2, date: '2026-11-08', label: '11/08', weekday: '周日' },
+  { day: 3, date: '2026-11-09', label: '11/09', weekday: '周一' },
+  { day: 4, date: '2026-11-10', label: '11/10', weekday: '周二' },
+  { day: 5, date: '2026-11-11', label: '11/11', weekday: '周三' },
 ] as const
 
 export function dateLabel(day: number): string {

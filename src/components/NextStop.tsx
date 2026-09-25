@@ -41,9 +41,9 @@ export default function NextStop() {
   if (!next) {
     return (
       <div className="bg-ink text-paper rounded-2xl p-5 sm:p-6">
-        <p className="text-[11px] uppercase tracking-widest2 text-paper/60 mb-2">Next stop</p>
-        <h3 className="font-serif text-2xl font-semibold">All done ✨</h3>
-        <p className="text-sm text-paper/70 mt-1">Every planned stop is marked visited. Enjoy the city.</p>
+        <p className="text-[11px] uppercase tracking-widest2 text-paper/60 mb-2">下一站</p>
+        <h3 className="font-serif text-2xl font-semibold">全部完成 ✨</h3>
+        <p className="text-sm text-paper/70 mt-1">所有计划点都已打卡。好好享受这座城市吧。</p>
       </div>
     )
   }
@@ -51,15 +51,15 @@ export default function NextStop() {
   const isFixed = next.kind === 'fixed'
   const title = isFixed ? next.title : next.place.name
   const subtitle = isFixed
-    ? next.venue ?? next.time ?? 'Fixed event'
+    ? next.venue ?? next.time ?? '固定活动'
     : `${next.place.area} · ${next.place.why ?? next.place.signature ?? ''}`
 
   return (
     <div className="bg-ink text-paper rounded-2xl p-5 sm:p-6">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[11px] uppercase tracking-widest2 text-paper/60">Next stop</span>
+        <span className="text-[11px] uppercase tracking-widest2 text-paper/60">下一站</span>
         <span className="text-[11px] text-paper/60">
-          {doneCount}/{stops.length} done
+          已完成 {doneCount}/{stops.length}
         </span>
       </div>
 
@@ -79,7 +79,7 @@ export default function NextStop() {
         className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-paper text-ink text-[13px] font-medium hover:bg-white transition-colors"
       >
         <Check size={15} />
-        Mark done
+        标记完成
       </button>
     </div>
   )

@@ -9,9 +9,9 @@ export default function MapPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <SectionHeading
-        eyebrow="Map"
-        title="Everything on one map"
-        sub={`${mapped.length} places with approximate coordinates — tap a pin for details. Use the search links on each card for exact directions.`}
+        eyebrow="地图"
+        title="所有地点一张图"
+        sub={`${mapped.length} 个地点（坐标为大致位置）——点图钉看详情，精确路线请用卡片里的地图搜索链接。`}
       />
 
       <MapView

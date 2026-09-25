@@ -17,8 +17,8 @@ export default function WanderMode() {
     <div className="bg-paper2 border border-line rounded-2xl p-5">
       <div className="flex items-center justify-between gap-3 mb-4">
         <div>
-          <p className="text-[11px] uppercase tracking-widest2 text-graywarm mb-0.5">Wander mode</p>
-          <h3 className="font-serif text-xl font-semibold text-ink">No plan, just go</h3>
+          <p className="text-[11px] uppercase tracking-widest2 text-graywarm mb-0.5">漫游模式</p>
+          <h3 className="font-serif text-xl font-semibold text-ink">没有计划，随便逛</h3>
         </div>
         <button
           type="button"
@@ -26,7 +26,7 @@ export default function WanderMode() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ink text-paper text-[13px] font-medium hover:bg-ink-soft transition-colors"
         >
           <Shuffle size={15} />
-          Wander
+          漫游
         </button>
       </div>
 
@@ -34,7 +34,7 @@ export default function WanderMode() {
         <PlaceCard place={current} compact />
       ) : (
         <p className="text-sm text-graywarm">
-          Tap “Wander” for a random Seoul-Life pick — a local cafe, market, or hidden spot.
+          点「漫游」随机推荐一个首尔生活打卡点——本地咖啡、市场或隐藏地标。
         </p>
       )}
     </div>
